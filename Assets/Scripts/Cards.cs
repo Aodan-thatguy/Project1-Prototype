@@ -1,16 +1,20 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Data;
 public class Cards : MonoBehaviour, IClickable, IHoldable
 {
     
     public int CardID = 0;
     //0 Saboteur, 1 Eyrie Emirge, 2 False Orders, 3 Root Tea, 4 Tunneling
+    [SerializeField] private bool ItemCard;
+    [SerializeField] private float CraftedPlacement;
     public int SuitID = 0;
     //0 Fox, 1 Mouse, 2 Rabbit, 3 Bird
     public int[] CardCost;
     //First int is suit 0 Fox, 1 Mouse, 2 Rabbit, 3 Bird
     //Second int is amount 
     private GameManager GM;
+
     private Vector3 originalPosition;
     void Awake()
     {
@@ -35,23 +39,31 @@ public class Cards : MonoBehaviour, IClickable, IHoldable
             if(GM.SuitsObtained[i] == CardCost[0] || CardCost[0] == 3)
             {
                 GM.SpendSuit(i);
-                //int[] newArray = new int[GM.SuitsObtained.Length - 1];
-                //for (int j = 0; j < i; j++)
-                //{
-                    //newArray[j] = GM.SuitsObtained[j];
-                //}
+                int[] newArray = new int[GM.SuitsObtained.Length - 1];
+                for (int j = 0; j < i; j++)
+                {
+                    newArray[j] = GM.SuitsObtained[j];
+                }
 
-                //for (int j = i; j < newArray.Length; j++)
-                //{
-                    //newArray[j] = GM.SuitsObtained[j + 1];
-                //}
+                for (int j = i; j < newArray.Length; j++)
+                {
+                    newArray[j] = GM.SuitsObtained[j + 1];
+                }
 
-                //GM.SuitsObtained = newArray;
+                GM.SuitsObtained = newArray;
                 Debug.Log(string.Join(", ",GM.SuitsObtained));
                 paid++;
             }
             if(paid == CardCost[1])
             {
+                if (ItemCard)
+                {
+                    GM.CraftItem(CardID ,CraftedPlacement);
+                }
+                else
+                {
+                    GM.CraftCard(CardID ,CraftedPlacement);
+                }
                 GM.SuitSpent();
                 Destroy(gameObject);
             }
@@ -78,7 +90,9 @@ public class Cards : MonoBehaviour, IClickable, IHoldable
         if(Other.CompareTag("Crow"))
         {
             Debug.Log("Turn on the TV they hit the Crow!!");
-            GM.AddSuit(SuitID);
+            int[] spawner = GameManager.SuitFinder(SuitID, GM.SuitCoordinates);
+            GM.CrowSpawner(spawner);
+            //GM.AddSuit(SuitID);
             Destroy(gameObject);
         }
     }

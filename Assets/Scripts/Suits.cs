@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Suits : MonoBehaviour, IClickable
+public class Suits : MonoBehaviour
+//, IClickable
 {
     public int SuitID = 4;
     //0 Fox, 1 Mouse, 2 Rabbit, 3 Bird
@@ -25,15 +26,15 @@ public class Suits : MonoBehaviour, IClickable
         Anim.SetTrigger("Clicked");
         //I was planing on doing more with this to excuse a full function but never ending up doing it
     }
-    public void Clicked()
-    {
-        if(!isClicked)
-        {
-            GM.GainSuit(SuitID);
-            Anim.SetTrigger("Clicked");
-            Debug.Log("Suit Clicked");
-            isClicked = true;
-        }
-    }
+    //public void Clicked()
+    //{
+        //if(!isClicked)
+        //{
+            //GM.GainSuit(SuitID);
+            //Anim.SetTrigger("Clicked");
+            //Debug.Log("Suit Clicked");
+            //isClicked = true;
+        //}
+    //}
 }
 

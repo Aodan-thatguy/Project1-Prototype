@@ -79,8 +79,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1701962507
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 398707392666751610, guid: 3ba7d95cc2949c44084ed7af233871b3, type: 3}
@@ -107,6 +107,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Cards
   CardID: 0
+  ItemCard: 0
+  CraftedPlacement: 0.11
   SuitID: 3
   CardCost: 0300000001000000i
 --- !u!61 &3988430590695434558
